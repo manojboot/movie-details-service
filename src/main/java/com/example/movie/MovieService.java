@@ -45,7 +45,17 @@ public class MovieService {
 			movies.get();
 		}
 		return movies.get().getTitle();
+	}
+	
+	public Movie getMovieById(String imdbId) {
 		
-		
+		Movie movie;
+		Optional<Movie> movies = movieRepository.getMovieByImdbId(imdbId);
+		if(movies.isEmpty()) {
+			 throw new MovieException("Movie details doesnot exist");
+		}else {
+			movie = movies.get();
+		}
+		return movie;
 	}
 }

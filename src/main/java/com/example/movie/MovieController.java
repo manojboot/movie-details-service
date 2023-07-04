@@ -2,7 +2,7 @@ package com.example.movie;
 
 import java.util.List;
 
-
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,7 @@ public class MovieController {
 	}
 
 
-	@GetMapping(value="all",produces = { "application/xml","application/json"})
+	@GetMapping(value="all",produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 //	@PreAuthorize("hasRole('ROLE_SpringAzureSecurity')")
 	public List<Movie> getAllMovies() {
 		
@@ -33,6 +33,14 @@ public class MovieController {
 		
 		String movies  = movieService.findAllMoviesByGenreAndYear(genre,year);
 		return movies;
+		
+	}
+	
+	@GetMapping("/{imdbId}")
+	public Movie findAllMoviesByGenreAndYear(@PathVariable String imdbId) {
+		
+		Movie movie  = movieService.getMovieById(imdbId);
+		return movie;
 		
 	}
 }
